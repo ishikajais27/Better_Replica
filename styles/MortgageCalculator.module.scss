@@ -1,0 +1,627 @@
+// MortgageCalculator.module.scss
+$primary-dark-green: #1e6f5c;
+$secondary-dark-green: #134d3f;
+$accent-green: #2e8b57;
+$background-light: #ffffff; // White background
+$text-light: #f5f7f6;
+$text-muted: #333333; // Darker text for better contrast on white background
+
+.container {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: $background-light; // White background for the entire container
+  color: $text-muted;
+  line-height: 1.7;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 6%;
+  background: rgba($primary-dark-green, 0.92);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.scrolled {
+    padding: 1rem 6%;
+    background: rgba($primary-dark-green, 0.98);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .logo {
+    h1 {
+      color: $text-light;
+      font-size: 1.8rem;
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 1px;
+      animation: fadeInLeft 0.8s ease-out;
+    }
+  }
+
+  .nav {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      color: $text-light;
+      font-weight: 600;
+      font-size: 1.1rem;
+      position: relative;
+      transition: color 0.3s ease;
+
+      &:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -8px;
+        left: 50%;
+        background: $accent-green;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      &:hover {
+        color: $text-light;
+        &:before {
+          width: 100%;
+        }
+      }
+    }
+
+    .ctaButton {
+      padding: 0.7rem 2rem;
+      background: $accent-green;
+      color: $text-light;
+      border-radius: 6px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba($accent-green, 0.3);
+
+      &:hover {
+        background: darken($accent-green, 10%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba($accent-green, 0.4);
+      }
+    }
+  }
+}
+
+.main {
+  padding: 4rem 6%;
+}
+
+.hero {
+  background: linear-gradient(
+    135deg,
+    $primary-dark-green 0%,
+    $secondary-dark-green 100%
+  );
+  color: $text-light;
+  padding: 6rem 6%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle,
+      rgba($accent-green, 0.15) 0%,
+      transparent 70%
+    );
+    animation: pulse 15s infinite ease-in-out;
+  }
+
+  .heroContent {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    animation: slideUp 1.2s ease-out;
+
+    h2 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.calculatorSection {
+  padding: 6rem 6% 2rem;
+  background: $background-light; // White background
+  position: relative;
+
+  h3 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: $text-muted;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 3px;
+      background: $accent-green;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .calculatorSeries {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 15px; // Adjusted for left-aligned series
+      width: 2px;
+      height: 100%;
+      background: $accent-green;
+    }
+
+    .calculatorItem {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 4rem;
+      position: relative;
+      opacity: 0; // Start hidden for scroll animation
+      transform: translateX(-20px); // Start off-screen left
+      transition: opacity 0.8s ease, transform 0.8s ease;
+
+      &.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      &.left {
+        .step {
+          margin-right: 1.5rem;
+        }
+
+        .content {
+          margin-left: 2.5rem;
+        }
+      }
+
+      &.right {
+        flex-direction: row-reverse;
+
+        .step {
+          margin-left: 1.5rem;
+        }
+
+        .content {
+          margin-right: 2.5rem;
+          text-align: right;
+        }
+      }
+
+      .step {
+        background: $accent-green;
+        color: $text-light;
+        padding: 0.8rem 1.2rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        z-index: 1;
+        min-width: 60px;
+        text-align: center;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      .content {
+        background: #f5f5f5; // Light gray for content cards, matching Better.com style
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-width: 350px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba($accent-green, 0.2);
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h4 {
+          color: $text-muted;
+          font-size: 1.3rem;
+          margin-bottom: 0.8rem;
+          font-weight: 600;
+        }
+
+        p {
+          color: $text-muted;
+          font-size: 1.1rem;
+          line-height: 1.6;
+          margin-bottom: 1.2rem;
+        }
+
+        .inputField,
+        .selectField,
+        .calculateButton {
+          width: 100%;
+          padding: 0.8rem;
+          border: 1px solid rgba($accent-green, 0.3);
+          border-radius: 6px;
+          font-size: 1rem;
+          margin-top: 0.5rem;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+          &:focus {
+            border-color: $accent-green;
+            box-shadow: 0 0 8px rgba($accent-green, 0.4);
+            outline: none;
+          }
+        }
+
+        .selectField {
+          appearance: none;
+          background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTEyIDQuODZjLTMuMjkgMC02IDMuMjktNiA2czIuNzEgNiA2IDZ2LTQuMjFjLTIuMjEgMC00IDEuNzk0LTQgNHMzLjg4IDQuNDggOCA0LjQ4IDggLTIuNjc4IDgtNC40OC0zLjg4LTQuNDgtOC00LjQ4di00LjIxY3MuMjEtNi02LTZ6bTAtMTVjLTcuNjggMC0xNCA2LjMyLTE0IDE0czYuMzIgMTQgMTQgMTRjNy42OCAwIDE0LTYuMzIgMTQtMTRzLTYuMzItMTQtMTQtMTR6IiBmaWxsPSIjMzMzMzMzIi8+PC9zdmc+')
+            no-repeat right 0.8rem center;
+          background-size: 1rem;
+          padding-right: 2.5rem;
+        }
+
+        .calculateButton {
+          background: $accent-green;
+          color: $text-light;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-weight: 600;
+          margin-top: 1rem;
+
+          &:hover {
+            background: darken($accent-green, 10%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba($accent-green, 0.4);
+          }
+        }
+
+        .error {
+          color: #d32f2f;
+          font-size: 0.9rem;
+          margin-top: 0.5rem;
+        }
+
+        .result {
+          color: $text-muted;
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-top: 1rem;
+          background: rgba($accent-green, 0.1);
+          padding: 0.8rem 1rem;
+          border-radius: 6px;
+        }
+
+        .results {
+          margin-top: 1rem;
+          background: rgba($accent-green, 0.05);
+          padding: 1rem;
+          border-radius: 8px;
+          border: 1px solid rgba($accent-green, 0.2);
+
+          h4 {
+            color: $accent-green;
+            margin-bottom: 0.8rem;
+          }
+
+          p {
+            margin: 0.5rem 0;
+          }
+        }
+      }
+    }
+  }
+
+  .calculatorDescription {
+    max-width: 800px;
+    margin: 4rem auto 2rem;
+    padding: 2rem;
+    background: rgba($accent-green, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba($accent-green, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    h3 {
+      color: $accent-green;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    p {
+      color: $text-muted;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+  }
+
+  .formulaSection {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: $background-light;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      color: $text-muted;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .formulaBox {
+      background: #f9f9f9;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      border: 1px solid rgba($accent-green, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      h4 {
+        color: $accent-green;
+        font-size: 1.4rem;
+        margin-bottom: 0.8rem;
+        font-weight: 600;
+      }
+
+      p,
+      ul {
+        color: $text-muted;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin: 0.5rem 0;
+      }
+
+      ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+      }
+    }
+  }
+}
+
+.footer {
+  background: linear-gradient(
+    to bottom,
+    $primary-dark-green,
+    $background-light
+  ); // White gradient for footer
+  color: $text-muted;
+  padding: 4rem 6%;
+  margin-top: 3rem;
+  position: relative;
+  border-top: 1px solid rgba($accent-green, 0.2);
+
+  .footerContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 3rem;
+
+    .footerSection {
+      h4 {
+        color: $text-light;
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+      }
+
+      p,
+      a {
+        margin-bottom: 0.8rem;
+        font-size: 1rem;
+      }
+
+      a {
+        display: block;
+        color: $text-muted;
+        text-decoration: none;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: $accent-green;
+          transform: translateX(5px);
+        }
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    font-size: 0.95rem;
+    margin-top: 3rem;
+    opacity: 0.8;
+    border-top: 1px solid rgba($text-muted, 0.1);
+    padding-top: 1.5rem;
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem 4%;
+    flex-direction: column;
+
+    .nav {
+      margin-top: 1.5rem;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  .hero {
+    padding: 5rem 4%;
+    .heroContent {
+      h2 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .calculatorSection {
+    padding: 4rem 4% 2rem;
+  }
+
+  .calculatorSeries {
+    &:before {
+      left: 15px;
+      transform: none;
+    }
+
+    .calculatorItem {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+
+      &.left,
+      &.right {
+        .step {
+          margin-right: 0;
+          margin-bottom: 1rem;
+        }
+
+        .content {
+          margin-left: 2rem;
+          margin-right: 0;
+          text-align: left;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
+  .calculatorDescription,
+  .formulaSection {
+    margin: 3rem auto;
+    padding: 1.5rem;
+  }
+
+  .formulaBox {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 3%;
+    .heroContent {
+      h2 {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .calculatorSection {
+    padding: 3rem 3% 1rem;
+    h3 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .calculatorDescription,
+  .formulaSection {
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+
+  .formulaBox {
+    margin-bottom: 1rem;
+  }
+}

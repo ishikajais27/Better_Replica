@@ -1,0 +1,312 @@
+$primary-dark-green: #1e6f5c;
+$secondary-dark-green: #134d3f;
+$accent-green: #2e8b57;
+$background-dark: #0f2a23;
+$background-light: #e8f0ed;
+$text-light: #f5f7f6;
+$text-muted: #b0c4bd;
+
+.container {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    to bottom,
+    $background-dark,
+    $secondary-dark-green
+  );
+  color: $text-muted;
+  line-height: 1.7;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle,
+      rgba($accent-green, 0.1) 0%,
+      transparent 70%
+    );
+    z-index: -1;
+  }
+}
+
+.header {
+  background: linear-gradient(
+    135deg,
+    rgba($primary-dark-green, 0.95),
+    rgba($secondary-dark-green, 0.95)
+  );
+  padding: 2rem 6%;
+  text-align: center;
+  color: $text-light;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeInLeft 0.8s ease-out;
+  }
+}
+
+.main {
+  padding: 4rem 6%;
+}
+
+.pathfinderSection {
+  max-width: 1000px;
+  margin: 0 auto;
+
+  &.section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .pathfinderContainer {
+    background: linear-gradient(
+      135deg,
+      rgba($primary-dark-green, 0.9),
+      rgba($secondary-dark-green, 0.9)
+    );
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba($accent-green, 0.3);
+
+    h2 {
+      color: $text-light;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .roadmapStage {
+      background: rgba($accent-green, 0.2);
+      padding: 1.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      color: $text-light;
+      font-size: 1.3rem;
+      font-weight: 600;
+
+      &:hover {
+        background: rgba($accent-green, 0.4);
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba($accent-green, 0.3);
+      }
+
+      &.active {
+        background: $accent-green;
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba($accent-green, 0.4);
+      }
+
+      .tooltip {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba($primary-dark-green, 0.95);
+        color: $text-light;
+        padding: 1rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        margin-top: 1rem;
+        width: 250px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+      }
+    }
+  }
+
+  .loading {
+    color: $text-light;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 2rem 0;
+    animation: pulse 1.5s infinite ease-in-out;
+  }
+
+  .error {
+    color: #d32f2f;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .recommendations {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: rgba($background-light, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba($accent-green, 0.3);
+
+    h3 {
+      color: $accent-green;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      color: $text-light;
+
+      li {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        line-height: 1.8;
+      }
+    }
+
+    .nextStepButton {
+      display: block;
+      margin: 2rem auto 0;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(
+        135deg,
+        $accent-green,
+        darken($accent-green, 10%)
+      );
+      color: $text-light;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba($accent-green, 0.3);
+
+      &:hover {
+        background: darken($accent-green, 15%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba($accent-green, 0.4);
+      }
+    }
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1.5rem 4%;
+    h1 {
+      font-size: 2.5rem;
+    }
+  }
+
+  .main {
+    padding: 3rem 4%;
+  }
+
+  .pathfinderContainer {
+    padding: 2rem;
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  .roadmap {
+    gap: 1.5rem;
+
+    .roadmapStage {
+      padding: 1.2rem;
+      font-size: 1.2rem;
+
+      .tooltip {
+        width: 200px;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .recommendations {
+    padding: 1.5rem;
+
+    h3 {
+      font-size: 1.6rem;
+    }
+
+    ul li {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 1rem 3%;
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .main {
+    padding: 2rem 3%;
+  }
+
+  .pathfinderContainer {
+    padding: 1.5rem;
+  }
+
+  .roadmapStage {
+    padding: 1rem;
+    font-size: 1.1rem;
+
+    .tooltip {
+      width: 180px;
+    }
+  }
+}
