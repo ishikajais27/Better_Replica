@@ -76,7 +76,7 @@ export default function AboutUs() {
             </div>
             <div className={styles.imageContent}>
               <img
-                src="/team-image.jpg" // Replace with your actual image path
+                src="https://akpsi.org/wp-content/uploads/2021/08/Group-of-Employees-Having-a-Meeting-Stock-Photo-scaled.jpeg"
                 alt="Our Team"
                 className={styles.teamImage}
               />
