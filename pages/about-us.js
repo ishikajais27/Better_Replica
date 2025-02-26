@@ -1,4 +1,3 @@
-// about-us.js
 import { useEffect } from 'react'
 import Head from 'next/head'
 import styles from '../styles/AboutUs.module.scss'
@@ -6,11 +5,20 @@ import styles from '../styles/AboutUs.module.scss'
 export default function AboutUs() {
   useEffect(() => {
     const handleScroll = () => {
-      const timelineItems = document.querySelectorAll(`.${styles.timelineItem}`)
-      timelineItems.forEach((item, index) => {
-        const rect = item.getBoundingClientRect()
-        if (rect.top < window.innerHeight * 0.9) {
-          item.classList.add(styles.visible)
+      const header = document.querySelector(`.${styles.header}`)
+      if (window.scrollY > 50) {
+        header.classList.add(styles.scrolled)
+      } else {
+        header.classList.remove(styles.scrolled)
+      }
+
+      const sections = document.querySelectorAll(
+        `.${styles.timelineItem}, .${styles.testimonialItem}`
+      )
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect()
+        if (rect.top < window.innerHeight * 0.8) {
+          section.classList.add(styles.visible)
         }
       })
     }
@@ -25,7 +33,7 @@ export default function AboutUs() {
         <title>Better.com - About Us</title>
         <meta
           name="description"
-          content="Learn more about Better.com and our mission to simplify mortgages."
+          content="Learn more about Better.com, our mission, and how we simplify the mortgage process."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -47,10 +55,10 @@ export default function AboutUs() {
       <main className={styles.main}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
-            <h2>Our Story</h2>
+            <h2>About Better</h2>
             <p>
-              We’re revolutionizing the mortgage industry, making homeownership
-              simpler, faster, and more accessible for all Americans.
+              We’re here to make your mortgage journey simple, fast, and
+              transparent.
             </p>
           </div>
         </section>
@@ -58,30 +66,18 @@ export default function AboutUs() {
         <section className={styles.aboutSection}>
           <div className={styles.aboutContent}>
             <div className={styles.textContent}>
-              <h3>Who We Are</h3>
+              <h3>Our Mission</h3>
               <p>
-                Better.com is a digital-first mortgage lender dedicated to
-                transforming the home buying experience. Founded with a vision
-                to break the status quo, we leverage cutting-edge technology to
-                streamline the mortgage process, offering fast approvals,
-                transparent pricing, and 24/7 support. Our mission is to make
-                homeownership more accessible for everyone, removing the
-                complexity and frustration traditionally associated with
-                mortgages.
-              </p>
-              <h3>Our Values</h3>
-              <p>
-                We believe in transparency, innovation, and customer-centric
-                solutions. Our team is committed to providing exceptional
-                service while driving positive change in the housing market.
-                Backed by industry-leading partners, we continue to push the
-                boundaries of what’s possible in mortgage lending.
+                At Better, we aim to simplify homeownership by offering quick
+                approvals, clear pricing, and constant support. Founded by
+                Ishika Jaiswal, our goal is to help everyone find their dream
+                home with ease.
               </p>
             </div>
             <div className={styles.imageContent}>
               <img
-                src="https://akpsi.org/wp-content/uploads/2021/08/Group-of-Employees-Having-a-Meeting-Stock-Photo-scaled.jpeg"
-                alt="Better.com Team"
+                src="/team-image.jpg" // Replace with your actual image path
+                alt="Our Team"
                 className={styles.teamImage}
               />
             </div>
@@ -89,132 +85,42 @@ export default function AboutUs() {
         </section>
 
         <section className={styles.timelineSection}>
-          <h3>Company Timeline</h3>
+          <h3>Our Journey</h3>
           <div className={styles.timeline}>
-            <div className={`${styles.timelineItem} ${styles.left}`}>
-              <div className={styles.year}>2014</div>
-              <div className={styles.content}>
-                <p>
-                  Better.com is founded with a mission to simplify the mortgage
-                  process using technology.
-                </p>
-              </div>
-            </div>
-            <div className={`${styles.timelineItem} ${styles.right}`}>
-              <div className={styles.year}>2015</div>
-              <div className={styles.content}>
-                <p>
-                  Launch of our first online mortgage application, making home
-                  loans more accessible.
-                </p>
-              </div>
-            </div>
-            <div className={`${styles.timelineItem} ${styles.left}`}>
-              <div className={styles.year}>2016</div>
-              <div className={styles.content}>
-                <p>
-                  Introduction of mobile app for mortgage management and
-                  real-time updates.
-                </p>
-              </div>
-            </div>
-            <div className={`${styles.timelineItem} ${styles.right}`}>
-              <div className={styles.year}>2017</div>
-              <div className={styles.content}>
-                <p>
-                  Introduction of the One Day Mortgage, enabling rapid
-                  pre-approvals and closings.
-                </p>
-              </div>
-            </div>
-            <div className={`${styles.timelineItem} ${styles.left}`}>
-              <div className={styles.year}>2018</div>
-              <div className={styles.content}>
-                <p>
-                  Expansion into multiple states, serving thousands of customers
-                  nationwide.
-                </p>
-              </div>
-            </div>
-            <div className={`${styles.timelineItem} ${styles.right}`}>
-              <div className={styles.year}>2019</div>
-              <div className={styles.content}>
-                <p>
-                  Partnerships with major financial institutions to enhance our
-                  offerings.
-                </p>
-              </div>
-            </div>
             <div className={`${styles.timelineItem} ${styles.left}`}>
               <div className={styles.year}>2020</div>
               <div className={styles.content}>
-                <p>
-                  Launch of refinance options to help homeowners save on
-                  interest rates during economic shifts.
-                </p>
+                <p>Better was founded with a vision to simplify mortgages.</p>
               </div>
             </div>
             <div className={`${styles.timelineItem} ${styles.right}`}>
               <div className={styles.year}>2021</div>
               <div className={styles.content}>
-                <p>
-                  Launch of advanced AI-driven mortgage tools and 24/7 customer
-                  support.
-                </p>
+                <p>Launched our 3-minute pre-approval tool.</p>
               </div>
             </div>
             <div className={`${styles.timelineItem} ${styles.left}`}>
-              <div className={styles.year}>2022</div>
-              <div className={styles.content}>
-                <p>
-                  Expansion into international markets, starting with Canada and
-                  the UK.
-                </p>
-              </div>
-            </div>
-            <div className={`${styles.timelineItem} ${styles.right}`}>
               <div className={styles.year}>2023</div>
               <div className={styles.content}>
-                <p>
-                  Introduction of eco-friendly mortgage options to support
-                  sustainable homeownership.
-                </p>
-              </div>
-            </div>
-            <div className={`${styles.timelineItem} ${styles.left}`}>
-              <div className={styles.year}>2024</div>
-              <div className={styles.content}>
-                <p>
-                  Launch of a comprehensive financial wellness platform for
-                  homeowners.
-                </p>
-              </div>
-            </div>
-            <div className={`${styles.timelineItem} ${styles.right}`}>
-              <div className={styles.year}>2025</div>
-              <div className={styles.content}>
-                <p>
-                  Integration of blockchain technology for secure, transparent
-                  mortgage transactions.
-                </p>
+                <p>Expanded to offer 24/7 support and Pathfinder tool.</p>
               </div>
             </div>
           </div>
         </section>
 
         <section className={styles.testimonials}>
-          <h3>What Our Customers Say</h3>
+          <h3>What Our Team Says</h3>
           <div className={styles.testimonialGrid}>
             <div className={styles.testimonialItem}>
               <p>
-                “Better.com made my home buying process seamless and quick—I
-                closed in just days!” - Sarah
+                “We’re passionate about helping people achieve their
+                homeownership dreams.” - Ishika
               </p>
             </div>
             <div className={styles.testimonialItem}>
               <p>
-                “Their transparency and support were unmatched. I saved
-                thousands on my mortgage!” - Michael
+                “Our technology makes the mortgage process fast and easy!” -
+                Team Member
               </p>
             </div>
           </div>
@@ -226,8 +132,8 @@ export default function AboutUs() {
           <div className={styles.footerSection}>
             <h4>Better</h4>
             <p>123 Main Street, New York, NY 10001</p>
-            <p>Email: 2329037@kiit.ac.in</p>
-            <p>Phone: +91 9006471374</p>
+            <p>Email: support@better.com</p>
+            <p>Phone: (800) 123-4567</p>
           </div>
           <div className={styles.footerSection}>
             <h4>Company</h4>
