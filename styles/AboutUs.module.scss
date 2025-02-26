@@ -1,4 +1,5 @@
-// AboutUs.module.scss
+@use 'sass:color'; // Import Sass color module for color.adjust()
+
 $primary-dark-green: #1e6f5c;
 $secondary-dark-green: #134d3f;
 $accent-green: #2e8b57;
@@ -99,7 +100,7 @@ $text-muted: #6c757d;
       box-shadow: 0 4px 15px rgba($accent-green, 0.3);
 
       &:hover {
-        background: darken($accent-green, 10%);
+        background: color.adjust($accent-green, $lightness: -10%);
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba($accent-green, 0.4);
       }
@@ -227,7 +228,7 @@ $text-muted: #6c757d;
   background: linear-gradient(
     135deg,
     $background-light 0%,
-    darken($background-light, 5%) 100%
+    color.adjust($background-light, $lightness: -5%) 100%
   );
   position: relative;
 
@@ -420,7 +421,7 @@ $text-muted: #6c757d;
   background: linear-gradient(
     to bottom,
     $primary-dark-green,
-    darken($primary-dark-green, 10%)
+    color.adjust($primary-dark-green, $lightness: -10%)
   );
   color: $text-light;
   padding: 6rem 6% 4rem;
